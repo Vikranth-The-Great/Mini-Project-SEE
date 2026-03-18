@@ -1,0 +1,13 @@
+{
+  "name": "food-waste-management-mern",
+  "private": true,
+  "version": "1.0.0",
+  "description": "MERN monorepo for Food Waste Management System",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "install:all": "npm install --prefix server && npm install --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
