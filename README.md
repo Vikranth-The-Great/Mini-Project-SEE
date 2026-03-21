@@ -1,178 +1,169 @@
-# Food Waste Management System (MERN)
+# Food Waste Management System (MERN Monorepo)
 
-A modern full-stack web application for managing food donations and waste reduction.
+A full-stack food donation platform with web, mobile, and backend services.
 
-## Stack
+## Tech Stack
 
 - MongoDB
 - Express.js
-- React.js (Vite)
+- React (Vite)
+- React Native (Expo)
 - Node.js
 
-## Project Structure
+## Repository Structure
 
-- `server/` - Express API, MongoDB models, JWT auth, role-based routes
-- `client/` - React frontend for User, Admin, and Delivery roles
+- `server/` - Express API, MongoDB models, auth, role-based routes
+- `client/` - Web frontend (React + Vite)
+- `apps/mobile/` - Mobile frontend (React Native + Expo)
+- `packages/shared/` - Shared constants, types, and utilities
 
 ## Prerequisites
 
-Before running the project, ensure you have:
-- **Node.js** (v14 or higher) - [Download](https://nodejs.org/)
-- **npm** (comes with Node.js)
-- **MongoDB** (v4.4 or higher) - [Download](https://www.mongodb.com/try/download/community)
-- **Git** - [Download](https://git-scm.com/)
+- Node.js 18+
+- npm 9+
+- MongoDB 4.4+
+- Git
 
-## Installation & Setup
+## Installation
 
-### Step 1: Clone the Repository
+1. Clone and enter the project:
+
 ```bash
 git clone https://github.com/Magalachetankumar/Waste-food-management-system.git
 cd Waste-food-management-system
 ```
 
-### Step 2: Install Root Dependencies
+2. Install all dependencies:
+
 ```bash
 npm install
 npm run install:all
 ```
-This installs dependencies for both the root, server, and client folders.
 
-### Step 3: Configure Environment Variables
+## Environment Setup
 
-#### Server Configuration
-1. Navigate to the server directory:
-   ```bash
-   cd server
-   ```
+1. Create server environment file:
 
-2. Copy the example environment file:
-   ```bash
-   cp .env.example .env
-   ```
+- Windows PowerShell:
 
-3. Edit `.env` and configure your settings:
-   ```
-   MONGODB_URI=mongodb://127.0.0.1:27017/food_waste_management
-   PORT=5000
-   JWT_SECRET=your_secret_key_here
-   ```
+```powershell
+Copy-Item server/.env.example server/.env
+```
 
-4. Return to root:
-   ```bash
-   cd ..
-   ```
+- macOS/Linux:
 
-### Step 4: Start MongoDB
-Start MongoDB locally (ensure it's running):
 ```bash
-# On Windows:
+cp server/.env.example server/.env
+```
+
+2. Update values in `server/.env` (minimum required):
+
+```env
+MONGODB_URI=mongodb://127.0.0.1:27017/food_waste_management
+PORT=5000
+JWT_SECRET=change_this_to_a_secure_secret
+JWT_EXPIRES_IN=7d
+```
+
+3. For mobile app backend URL, update `apps/mobile/src/config/env.ts` with your local machine IP when testing on a real device.
+
+## Run MongoDB
+
+- Windows:
+
+```bash
 mongod
+```
 
-# On macOS (if installed via Homebrew):
+- macOS (Homebrew):
+
+```bash
 brew services start mongodb-community
+```
 
-# On Linux:
+- Linux:
+
+```bash
 sudo systemctl start mongod
 ```
 
-Verify MongoDB is running on `mongodb://127.0.0.1:27017/`
+## Run the Project
 
-## Running the Project
+From the root folder:
 
-### Option 1: Run Frontend + Backend Together
-From the root directory:
+- Web + Server:
+
 ```bash
 npm run dev
 ```
 
-This will:
-- Start the backend API on `http://localhost:5000`
-- Start the frontend on `http://localhost:5173`
+- Web only:
 
-### Option 2: Run Separately (for debugging)
-
-**Terminal 1 - Backend:**
 ```bash
-cd server
-npm run dev
-# Backend runs on http://localhost:5000
+npm run dev:web
 ```
 
-**Terminal 2 - Frontend:**
+- Server only:
+
 ```bash
-cd client
-npm run dev
-# Frontend runs on http://localhost:5173
+npm run dev:server
 ```
 
-## Accessing the Application
+- Mobile (Expo):
 
-Once both servers are running:
-
-1. **Frontend:** Open your browser and go to:
-   ```
-   http://localhost:5173
-   ```
-
-2. **Backend API:** Available at:
-   ```
-   http://localhost:5000
-   ```
-
-## Testing the Features
-
-### User Features
-1. Sign up as a regular user
-2. Browse food donations
-3. Post a food donation
-4. Track delivery status
-
-### Admin Features
-1. Sign up as admin
-2. Access admin dashboard
-3. View all donations and analytics
-4. Manage users and feedback
-
-### Delivery Person Features
-1. Sign up as delivery person
-2. View available orders
-3. Accept and track orders
-4. Update delivery status
-5. Open map for directions
-
-## Building for Production
-
-To create a production build of the frontend:
 ```bash
-cd client
-npm run build
-# Creates optimized build in dist/ folder
+npm run dev:mobile
 ```
 
-## Available Scripts
+- Server + Web + Mobile together:
 
-- `npm run dev` - Start both frontend and backend in development mode
-- `npm run test` - Run backend tests
-- `cd server && npm run dev` - Start backend only
-- `cd client && npm run dev` - Start frontend only
-- `cd client && npm run build` - Build frontend for production
+```bash
+npm run dev:all
+```
 
-## API Highlights
+## Default Local URLs
+
+- Web app: http://localhost:5173
+- API server: http://localhost:5000
+
+## Tests
+
+Run backend tests:
+
+```bash
+npm run test
+```
+
+## Build
+
+- Build web app:
+
+```bash
+npm run build:web
+```
+
+- Build Android app (Expo EAS):
+
+```bash
+npm run build:mobile
+```
+
+## Main API Groups
 
 - User auth: `/api/auth/*`
 - Admin auth: `/api/admin/auth/*`
 - Delivery auth: `/api/delivery/auth/*`
 - Donations: `/api/donations/*`
 - Feedback: `/api/feedback/*`
+- Notifications: `/api/notifications/*`
 - Analytics: `/api/analytics`
 
-## Features
+## Core Features
 
-- User authentication and profile management
-- Food donation listing and tracking
-- Admin dashboard with analytics
-- Delivery person management and order tracking
+- User, Admin, and Delivery role workflows
+- Food donation creation and tracking lifecycle
+- Admin dashboard analytics
 - Real-time notifications
-- Multi-language support (English, Hindi, Kannada)
-- Role-based access control (User, Admin, Delivery)
+- Multilingual web interface (English, Hindi, Kannada)
+- Shared types/constants for cross-app consistency
 
